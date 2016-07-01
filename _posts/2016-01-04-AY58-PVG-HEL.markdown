@@ -43,6 +43,7 @@ Scheduled Time:10:05-08:15(+1)
 Mileage:4599
 Aircraft:Airbus A350-900 XWB<br />
 Aircraft reg:OH-LWA<br />
+Aircraft age:0.1 year
 Class/Seat No. Economy Class/50B(Aisle)
 
 今天的登機時間是09:25，預計出發時間是10:05。
