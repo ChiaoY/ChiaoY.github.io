@@ -29,7 +29,7 @@ tags: AY, Finnair, PVG, HEL, A350-900
 ![紐航A359](https://chiaoy.github.io/assets/IMG_0969.JPG)
 
 
-芬蘭航空的登機證好美阿！
+Finnair的登機證好美阿！
 今天的登機證：
 ![登機證](https://chiaoy.github.io/assets/IMG_0957.JPG)
 
@@ -42,24 +42,60 @@ Route:PVG-HEL<br />
 Aircraft:Airbus A350-900 XWB<br />
 Aircraft reg:OH-LWA<br />
 
+今天的登機時間是09:25，預計出發時間是10:05。
+非常靈敏好用的AVOD，解析度很高：
+![AVOD](https://chiaoy.github.io/assets/IMG_0970.JPG)
+
+機上的付費wifi：
+![登機證](https://chiaoy.github.io/assets/IMG_0971.JPG)
+
+很清楚的鏡頭！在起飛降落階段轉這個畫面就對了：
+![登機證](https://chiaoy.github.io/assets/IMG_0973.JPG)
 
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+鏡頭視角2,忙碌的地勤大叔：
+![登機證](https://chiaoy.github.io/assets/IMG_0972.JPG)
 
-Jekyll also offers powerful support for code snippets:
+今天Y艙滿艙，氣氛燈很漂亮：
+![登機證](https://chiaoy.github.io/assets/IMG_0976.JPG)
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+第一次看到使用LCD螢幕的禁煙標誌：
+![登機證](https://chiaoy.github.io/assets/IMG_0980.JPG)
 
-Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
+10:19後推滑行：
+![登機證](https://chiaoy.github.io/assets/IMG_0984.JPG)
 
+Y艙中段,10:50開始第一份餐點，今天的組員有一半是中國籍一半是芬蘭籍:
+![登機證](https://chiaoy.github.io/assets/IMG_1007.JPG)
 
 
-[jekyll]:      http://jekyllrb.com
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-help]: https://github.com/jekyll/jekyll-help
+11:33終於拿到餐盤，今天午餐是牛肉飯：
+![登機證](https://chiaoy.github.io/assets/IMG_1006.JPG)
+
+飛行資訊還可以模擬左右邊窗口：
+![登機證](https://chiaoy.github.io/assets/IMG_1008.JPG)
+
+好想買一台模型回家呀！：
+![登機證](https://chiaoy.github.io/assets/IMG_1009.JPG)
+
+飛行資訊還可以模擬左右邊窗口：
+![登機證](https://chiaoy.github.io/assets/IMG_1008.JPG)
+
+好想買一台模型回家呀！：
+![登機證](https://chiaoy.github.io/assets/IMG_1009.JPG)
+
+14:30飛到冰天雪地的俄羅斯領空：
+![登機證](https://chiaoy.github.io/assets/IMG_1010.JPG)
+
+飛行資訊可以查詢各目的地的資訊喔！點擊白色的Pin就行了：
+![登機證](https://chiaoy.github.io/assets/IMG_1011.JPG)
+
++GMT8 19:40到達赫爾辛基，當地時間為下午14:40，回頭再為親愛的A350拍個照：
+![登機證](https://chiaoy.github.io/assets/IMG_1012.JPG)
+
+
+
+
+
+
+
