@@ -7,9 +7,9 @@ tags: AY, Finnair, PVG, HEL, A350-900
 ---
 芬蘭航空在去年2015接收了4架的新型A350-900 XWB,號稱是第一間接收此款飛機的歐洲航空公司。芬蘭航空總共訂了19架A359，預計在2017前會收到11架。在結束赫爾辛基(HEL)及阿姆斯特丹(ASM)間的短程試營運後變投入了赫爾辛基(HEL)往返北京(PEK)，上海(PVG),香港(HKG)，曼谷(BKK)等城市。很幸運的第一次與芬蘭航空相遇就搭到了最新的飛機！
 
-此次行程為上海經赫爾辛基轉機到柏林
+此次行程為上海經赫爾辛基轉機到柏林，前往德國一個月的短期交換生活！
 
-在等飛機的時候當然要去浦東機場著名的77號登機口東行環亞貴賓室啦！這一間真的是我的最愛，人少服務又好，還可以欣賞一整排的飛機！
+在等飛機的時候當然要去浦東機場著名的(T2)77號登機口東行環亞貴賓室啦！這一間真的是我的最愛，人少服務又好，還可以欣賞一整排的飛機！
 
 貴賓室的VIEW:
 ![貴賓室的VIEW](https://chiaoy.github.io/assets/IMG_0955.JPG)
@@ -36,11 +36,14 @@ Finnair的登機證好美阿！
 
 行程資料:<br/>
 Date: 2016/01/04<br/>
+Carrier:FINNAIR<br />
 Flight No.:AY58<br />
-Airline:FINNAIR<br />
-Route:PVG-HEL<br />
+Route:Shanghai(PVG)-Helsinki(HEL)<br />
+Scheduled Time:10:05-08:15(+1)
+Mileage:4599
 Aircraft:Airbus A350-900 XWB<br />
 Aircraft reg:OH-LWA<br />
+Class/Seat No. Economy Class/50B(Aisle)
 
 今天的登機時間是09:25，預計出發時間是10:05。
 非常靈敏好用的AVOD，解析度很高：
@@ -78,11 +81,6 @@ Y艙中段,10:50開始第一份餐點，今天的組員有一半是中國籍一�
 好想買一台模型回家呀！：
 ![登機證](https://chiaoy.github.io/assets/IMG_1009.JPG)
 
-飛行資訊還可以模擬左右邊窗口：
-![登機證](https://chiaoy.github.io/assets/IMG_1008.JPG)
-
-好想買一台模型回家呀！：
-![登機證](https://chiaoy.github.io/assets/IMG_1009.JPG)
 
 14:30飛到冰天雪地的俄羅斯領空：
 ![登機證](https://chiaoy.github.io/assets/IMG_1010.JPG)
@@ -93,9 +91,7 @@ Y艙中段,10:50開始第一份餐點，今天的組員有一半是中國籍一�
 +GMT8 19:40到達赫爾辛基，當地時間為下午14:40，回頭再為親愛的A350拍個照：
 ![登機證](https://chiaoy.github.io/assets/IMG_1012.JPG)
 
-
-
-
+來到冰天雪地的芬蘭首都，等待三個小時後轉往柏林的AY917囉！
 
 
 
