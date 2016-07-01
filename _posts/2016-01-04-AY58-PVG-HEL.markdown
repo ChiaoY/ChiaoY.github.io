@@ -9,6 +9,12 @@ tags: AY, Finnair, PVG, HEL, A350-900
 
 此次行程為上海經赫爾辛基轉機到柏林
 
+在等飛機的時候當然要去浦東機場著名的77號登機口東行環亞貴賓室啦！這一間真的是我的最愛，人少服務又好，還可以欣賞一整排的飛機！
+貴賓室的VIEW:
+![貴賓室的VIEW](https://chiaoy.github.io/assets/IMG_0955.JPG)
+紐西蘭航空的A359:
+![紐航A359]({{ site.url }}/assets/IMG_0957.JPG)
+
 行程資料:<br/>
 Date: 2016/01/04<br/>
 Flight No.:AY58<br />
