@@ -9,18 +9,12 @@ tags: AY, Finnair, PVG, HEL, A350-900
 
 行程資料
 
-Date: 2016/01/04
-
-Flight No.:AY58
-
-Airline:FINNAIR
-
-Route:PVG-HEL
-
-Aircraft:Airbus A350-900 XWB
-
-Aircraft reg:OH-LWA
-
+Date: 2016/01/04<br/>
+Flight No.:AY58<br />
+Airline:FINNAIR<br />
+Route:PVG-HEL<br />
+Aircraft:Airbus A350-900 XWB<br />
+Aircraft reg:OH-LWA<br />
 
 To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
 
