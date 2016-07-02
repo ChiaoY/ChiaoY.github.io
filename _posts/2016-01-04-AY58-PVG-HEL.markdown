@@ -40,11 +40,11 @@ Carrier:FINNAIR<br />
 Flight No.:AY58<br />
 Route:Shanghai(PVG)-Helsinki(HEL)<br />
 Scheduled Time:10:05-08:15(+1)
-Mileage:4599
+Mileage:4599<br />
 Aircraft:Airbus A350-900 XWB<br />
 Aircraft reg:OH-LWA<br />
-Aircraft age:0.1 year
-Class/Seat No. Economy Class/50B(Aisle)
+Aircraft age:0.1 year<br />
+Class/Seat No. Economy Class/50B(Aisle)<br />
 
 今天的登機時間是09:25，預計出發時間是10:05。
 非常靈敏好用的AVOD，解析度很高：
@@ -89,10 +89,13 @@ Y艙中段,10:50開始第一份餐點，今天的組員有一半是中國籍一�
 飛行資訊可以查詢各目的地的資訊喔！點擊白色的Pin就行了：
 ![登機證](https://chiaoy.github.io/assets/IMG_1011.JPG)
 
-+GMT8 19:40到達赫爾辛基，當地時間為下午14:40，回頭再為親愛的A350拍個照：
++GMT8 19:40到達赫爾辛基，當地時間為下午14:40，回頭再為親愛的A359拍個照：
 ![登機證](https://chiaoy.github.io/assets/IMG_1012.JPG)
 
 來到冰天雪地的芬蘭首都，等待三個小時後轉往柏林的AY917囉！
+
+小結：<br />
+芬航一直都是空巴的忠誠合作夥伴，除了小型的Embraer 170及190以外，清一色都是空巴產品，350成為與空巴簽訂第一筆firm contract的航空公司也不令人意外呀！真的蠻幸運能夠搭乘到全世界第一架投入商業營運的A350 Series，許久沒搭乘洲際航線之後，這一次搭乘A359的經驗真的讓人非常驚豔。
 
 
 
