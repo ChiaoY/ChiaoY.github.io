@@ -27,9 +27,14 @@ So 算是 Sofitel 主打年輕氣息的品牌，裝潢與設計都非常的年�
 漂亮的迎賓飲料:
 ![漂亮的迎賓飲料](https://chiaoy.github.io/assets/IMG_4481.JPG)
 
+可惜泰國飲料70%都是冰塊所以一下就喝完了ＱＡＱ
 
-每次來都要坐的大沙發XD:
-![貴賓室的VIEW](https://chiaoy.github.io/assets/IMG_0960.JPG)
+So Sofitel  Bengkok 是以地球的五種元素作為主題，我們這次選擇土（Earth）
+一進去超驚喜的！！！電視就直接寫著我的名字，感覺整個房間真的就屬於你一斑。
+
+
+讓人驚喜的電視><:
+![讓人驚喜的電視><](https://chiaoy.github.io/assets/IMG_4493.JPG)
 
 
 放倒以後超讚的:
