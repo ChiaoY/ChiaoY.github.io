@@ -7,9 +7,9 @@ tags: VSCode, C/C++
 ---
 Vitual Studio太肥太難用，佔了一堆系統資源，加上不支援MacOS與Linux系統，所以果斷放棄
 
-原本都是用![SublimeText](https://www.sublimetext.com/)，不過常常跳廣告就...(ry
+原本都是用[SublimeText](https://www.sublimetext.com/)，不過常常跳廣告就...(ry
 
-直到看完這篇![為什麼我從 Sublime Text 跳槽 Visual Studio Code？](https://hungys.xyz/why-i-switched-from-sublime-to-vscode/)就怒跳坑了
+直到看完這篇[“為什麼我從 Sublime Text 跳槽 Visual Studio Code？”](https://hungys.xyz/why-i-switched-from-sublime-to-vscode/)就怒跳坑了
 
 以下是主要的幾個優點:
 * 開源以及持續活躍的開發
