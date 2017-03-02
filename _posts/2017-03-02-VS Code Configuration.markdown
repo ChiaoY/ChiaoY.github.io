@@ -7,12 +7,17 @@ tags: VSCode, C/C++
 ---
 
 先從Vitual Studio的[官網](https://code.visualstudio.com/)下載
+
 Mac 支援 .dbm包裝
+
 Windows支援Installer 與 .zip
+
 Linux 支援 .deb, .rpm, .tar.gz 三種
 
 VS Code不是IDE，但是還是可以build程式碼
+
 下面提供C/C++編譯設定方法
+
 詳細設定可以看[官方文件](https://code.visualstudio.com/docs/languages/cpp)
 1. 開啟VS Code(廢話...)
 2. 在左邊的Sidebar找到Extension ![Extension](https://chiaoy.github.io/assets/VS Code/Extension.png)
