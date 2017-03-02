@@ -8,7 +8,7 @@ tags: VSCode, C/C++
 
 OAO 
 
-'''json
+```json
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
@@ -19,7 +19,7 @@ OAO
     "args": ["-g", "-o ${fileBasenameNoExtension}", "${file}"],
     "echoCommand": true
 }
-'''
+```
 
 漂亮的迎賓飲料:
 ![漂亮的迎賓飲料](https://chiaoy.github.io/assets/IMG_4481.JPG)
