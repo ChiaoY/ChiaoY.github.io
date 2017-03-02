@@ -8,11 +8,9 @@ tags: VSCode, C/C++
 
 先從Vitual Studio的[官網](https://code.visualstudio.com/)下載
 
-Mac 支援 .dbm包裝
-
-Windows支援Installer 與 .zip
-
-Linux 支援 .deb, .rpm, .tar.gz 三種
+* Mac 支援 .dbm包裝
+* Windows支援Installer 與 .zip
+* Linux 支援 .deb, .rpm, .tar.gz 三種
 
 VS Code不是IDE，但是還是可以build程式碼
 
