@@ -2,7 +2,7 @@
 layout: post
 title:  "V$ Code 的基礎設定"
 date:   2017-03-02 13:36:58
-categories: Hotels
+categories: Coding
 tags: VSCode, C/C++
 ---
 Vitual Studio太肥太難用，佔了一堆系統資源，加上不支援MacOS與Linux系統，所以果斷放棄
