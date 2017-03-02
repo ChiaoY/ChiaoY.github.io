@@ -62,7 +62,8 @@ VS Code不是IDE，但是還是可以build程式碼
 14. 就醬子（撒花）
 
 
-#後記
+# 後記
+
 不過Sublime已經出到Sblime 3 beta，所以穩定性相對也高，與Atom一樣都是VS Code以外不錯的選擇(欸不要最後才講
 
 三個詳細的差別就...自行Google
