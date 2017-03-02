@@ -5,6 +5,19 @@ date:   2017-03-02 13:36:58
 categories: Hotels
 tags: VSCode, C/C++
 ---
+Vitual Studio太肥太難用，佔了一堆系統資源，加上不支援MacOS與Linux系統，所以果斷放棄
+
+原本都是用![SublimeText](https://www.sublimetext.com/)，不過常常跳廣告就...(ry
+
+直到看完這篇![為什麼我從 Sublime Text 跳槽 Visual Studio Code？](https://hungys.xyz/why-i-switched-from-sublime-to-vscode/)就怒跳坑了
+
+以下是主要的幾個優點:
+* 開源以及持續活躍的開發
+* git整合(之後來試試看)
+* 內建Debugger框架
+* 超豐富的套件資源
+
+# 下面來說說怎麼安裝VS Code以及建置C/C++編譯環境
 
 先從Vitual Studio的[官網](https://code.visualstudio.com/)下載
 
@@ -42,5 +55,5 @@ VS Code不是IDE，但是還是可以build程式碼
 ```
 12. 切換到你的C/C++ code分頁
 13. Build(⇧⌘B)
-14. 就醬子
+14. 就醬子（撒花）
 
