@@ -15,7 +15,7 @@ tags: VSCode, C/C++
 
 BUT...好的Editor帶你上天堂，所以才會有VS Code的出現。編輯器可以透過Plugin實現IDE能做到的許多事，因此能一大家各自的需求調整，而不用像IDE那樣一次將所有功能載入，造成資源損耗。
 
-以下是Vitual Studio Code主要的幾個優點:
+以下是Visual Studio Code主要的幾個優點:
 * 開源以及持續活躍的開發
 * git整合(之後來試試看)
 * 內建Debugger框架
@@ -23,7 +23,7 @@ BUT...好的Editor帶你上天堂，所以才會有VS Code的出現。編輯器�
 
 # 下面來說說怎麼安裝VS Code以及建置C/C++編譯環境
 
-先從Vitual Studio的[官網](https://code.visualstudio.com/)下載
+先從Visual Studio的[官網](https://code.visualstudio.com/)下載
 
 * Mac 支援 .dbm包裝
 * Windows支援Installer 與 .zip
