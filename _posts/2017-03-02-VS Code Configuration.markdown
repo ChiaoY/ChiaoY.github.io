@@ -20,9 +20,11 @@ VS Code不是IDE，但是還是可以build程式碼
 4. 開啟你的程式碼，你會看到一堆小蚯蚓（像是在＃include <>那行）
 5. 點擊左邊的小燈泡
 6. 點擊“Add include path to settings”
-7. 
-
-    segment test
+7. VS Code會自動生成c_cpp_properties.json，然後就...別理他
+8. 打開`Command Palette` (⇧⌘P).
+9. 輸入`Tasks: Configure Task Runner`
+10. 選擇 `Others`
+11. 把下面的Code複製貼上
 ```json
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
@@ -35,27 +37,7 @@ VS Code不是IDE，但是還是可以build程式碼
     "echoCommand": true
 }
 ```
-
-# hello world
-
-you can write text [with links](http://example.com) inline or [link references][1].
-
-* one _thing_ has *em*phasis
-* two __things__ are **bold**
-
-[1]: http://example.com
-
----
-
-hello world
-===========
-
-<this_is inline="xml"></this_is>
-
-> markdown is so cool
-
-    so are code segments
-
-1. one thing (yeah!)
-2. two thing `i can write code`, and `more` wipee!
+12. 切換到你的C/C++ code分頁
+13. Build(⇧⌘B)
+14. 就醬子
 
