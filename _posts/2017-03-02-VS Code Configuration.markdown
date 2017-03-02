@@ -6,7 +6,21 @@ categories: Hotels
 tags: VSCode, C/C++
 ---
 
-OAO 
+先從Vitual Studio的[官網](https://code.visualstudio.com/)下載
+Mac 支援 .dbm包裝
+Windows支援Installer 與 .zip
+Linux 支援 .deb, .rpm, .tar.gz 三種
+
+VS Code不是IDE，但是還是可以build程式碼
+下面提供C/C++編譯設定方法
+詳細設定可以看[官方文件](https://code.visualstudio.com/docs/languages/cpp)
+1. 開啟VS Code(廢話...)
+2. 在左邊的Sidebar找到Extension ![Extension](https://chiaoy.github.io/assets/VS Code/Extension.png)
+3. 找到C/C++，安裝
+4. 開啟你的程式碼，你會看到一堆小蚯蚓（像是在＃include <>那行）
+5. 點擊左邊的小燈泡
+6. 點擊“Add include path to settings”
+7. 
 
 ```json
 {
@@ -21,49 +35,26 @@ OAO
 }
 ```
 
-漂亮的迎賓飲料:
-![漂亮的迎賓飲料](https://chiaoy.github.io/assets/IMG_4481.JPG)
+# hello world
 
-可惜泰國飲料70%都是冰塊所以一下就喝完了ＱＡＱ
+you can write text [with links](http://example.com) inline or [link references][1].
 
-So Sofitel  Bengkok 是以地球的五種元素作為主題，我們這次選擇土（Earth）
-一進去超驚喜的！！！電視就直接寫著我的名字，感覺整個房間真的就屬於你一斑。
+* one _thing_ has *em*phasis
+* two __things__ are **bold**
 
+[1]: http://example.com
 
-讓人驚喜的電視><:
-![讓人驚喜的電視><](https://chiaoy.github.io/assets/IMG_4493.JPG)
+---
 
+hello world
+===========
 
-放倒以後超讚的:
-![貴賓室的VIEW](https://chiaoy.github.io/assets/IMG_0961.JPG)
+<this_is inline="xml"></this_is>
 
-紐西蘭航空的787-9:
-![紐航A359](https://chiaoy.github.io/assets/IMG_0954.JPG)
+> markdown is so cool
 
-今天要搭乘的芬航A359(OH-LWA):
-![紐航A359](https://chiaoy.github.io/assets/IMG_0969.JPG)
+    so are code segments
 
-
-Finnair的登機證好美阿！
-今天的登機證：
-![登機證](https://chiaoy.github.io/assets/IMG_0957.JPG)
-
-
-行程資料:<br/>
-Date: 2016/01/04<br/>
-Carrier:FINNAIR<br />
-Flight No.:AY58<br />
-Route:Shanghai(PVG)-Helsinki(HEL)<br />
-Scheduled Time:10:05-08:15(+1)
-Mileage:4599<br />
-Aircraft:Airbus A350-900 XWB<br />
-Aircraft reg:OH-LWA<br />
-Aircraft age:0.1 year<br />
-Class/Seat No. Economy Class/50B(Aisle)<br />
-
-
-小結：<br />
-芬航一直都是空巴的忠誠合作夥伴，除了小型的Embraer 170及190以外，清一色都是空巴產品，350成為與空巴簽訂第一筆firm contract的航空公司也不令人意外呀！真的蠻幸運能夠搭乘到全世界第一架投入商業營運的A350 Series，許久沒搭乘洲際航線之後，這一次搭乘A359的經驗真的讓人非常驚豔。
-
-
+1. one thing (yeah!)
+2. two thing `i can write code`, and `more` wipee!
 
