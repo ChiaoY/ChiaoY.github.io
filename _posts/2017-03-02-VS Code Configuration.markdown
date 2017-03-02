@@ -5,13 +5,15 @@ date:   2017-03-02 13:36:58
 categories: Coding
 tags: VSCode, C/C++
 ---
-教授Vitual Studio太肥太難用，佔了一堆系統資源，加上不支援MacOS與Linux系統，所以果斷放棄
+教授Visual Studio太肥太難用，佔了一堆系統資源，加上不支援MacOS與Linux系統，所以果斷放棄。
 
-原本都是用[SublimeText](https://www.sublimetext.com/)，不過常常跳購買廣告就...(ry
-
-不過Sublime已經出到Sblime 3 beta，所以穩定性相對也高，與Atom一樣都是VS Code以外不錯的選擇
+原本寫程式都是用[SublimeText](https://www.sublimetext.com/)，缺點是常常跳購買廣告就...(ry
 
 直到看完這篇[“為什麼我從 Sublime Text 跳槽 Visual Studio Code？”](https://hungys.xyz/why-i-switched-from-sublime-to-vscode/)就怒跳坑了
+
+噢對了，Visual Studio是IDE，而VS Code是Editor，兩個是有一些差別的，IDE幫你整合了你寫程式所需要的全部工具，Editor就是...editor。
+
+BUT...好的Editor帶你上天堂，所以才會有VS Code的出現。編輯器可以透過Plugin實現IDE能做到的許多事，因此能一大家各自的需求調整，而不用像IDE那樣一次將所有功能載入，造成資源損耗。
 
 以下是Vitual Studio Code主要的幾個優點:
 * 開源以及持續活躍的開發
@@ -59,3 +61,8 @@ VS Code不是IDE，但是還是可以build程式碼
 13. Build(⇧⌘B)
 14. 就醬子（撒花）
 
+
+#後記
+不過Sublime已經出到Sblime 3 beta，所以穩定性相對也高，與Atom一樣都是VS Code以外不錯的選擇(欸不要最後才講
+
+三個詳細的差別就...自行Google
