@@ -173,4 +173,3 @@ ls -lash
 yum install lusture-iokit
 ost-survey -s 10 /lustre
 ```
-
