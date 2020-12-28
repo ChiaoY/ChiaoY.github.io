@@ -1,0 +1,176 @@
+---
+layout: post
+title:  "Lustre建置"
+date:   2020-12-29
+categories: HPC
+tags: HPC, Lustre
+---
+
+# Lustre 規劃（上機實驗）
+
+
+## 主機
+| 角色     | 主機名  | vCPU | RAM  |
+| -------- | ------- | ---- | ---- |
+| MGS+MDS      | MGS-MDS | 4    | 8GB  |
+| COLD-OSS | OSS-001 | 4    | 16GB |
+| HOT-OSS  | OSS-002 | 4    | 16GB |
+
+
+## 儲存
+| 角色    | Service 1 | Service 2 | 編號      | Storage   | RAID |
+| ------- | --------- | --------- | --------- | --------- | ---- |
+| MGT+MDT | MGS-MDS   |           | MGT-MDT   | 2*20GB SSD | 1    |
+| COLD-OST     | OSS-001   | OSS-002   | OST-00101 | 10*30GB    | 6    |
+| HOT-OST     | OSS-002   | OSS-001   | OST-00201 | 10*10GB    | 6    |
+
+
+
+## SYSTEM COFIG
+
+
+| Common Para  | Value  | Description        |
+| ------------ | ------ | ------------------ |
+| MGS Node     | Text   | Text               |
+| file system  | temp   | name of filesystem |
+| Network type | TCP/IP |                    |
+
+
+
+| Node     |              | Value      | Description |
+| -------- | ------------ | ---------- | ----------- |
+| MGS/MDS  |              |            |             |
+|          | MGS/MDS      | mdt0       |             |
+|          | Block device | /dev/md0   |             |
+|          | mount point  | /mnt/mdt   |             |
+|          |              |            |             |
+| CLOD OSS |              |            |             |
+|          | OSS node     | oss01      |             |
+|          | OST          | ost01      |             |
+|          | Block device | /dev/md0   |             |
+|          | mount point  | /mnt/ost01 |             |
+|          |              |            |             |
+| HOT OSS  |              |            |             |
+|          | OSS node     | oss02      |             |
+|          | OST          | ost02      |             |
+|          | Block device | /dev/md0   |             |
+|          | mount point  | /mnt/ost02 |             |
+|          |              |            |             |
+| Client   |              |            |             |
+|          | Client node  | client1    |             |
+|          | mount point  | /lustre    |             |
+|          |              |            |             |
+|          |              |            |             |
+
+
+
+### RAID指令
+建置
+```
+mdadm --create --auto=yes /dev/md0 --level=6 --raid-device=6 --spare-device=0 /dev/vd{b,c,d,e,f,g}
+```
+查詢
+```
+mdadm --detail /dev/md0
+```
+
+### 新增lustre repo 及e2fsprogs repo
+
+```vim /etc/yum.repos.d/lustre.repo```
+填入
+```
+[lustre]
+name=lustre repo
+baseurl=https://downloads.whamcloud.com/public/lustre/latest-release/el7/server/
+enabled=1
+gpgcheck=0
+
+[e2fsprogs]
+name=e2fsprogs repo
+baseurl=https://downloads.whamcloud.com/public/e2fsprogs/latest/el7/
+enabled=1
+gpgcheck=0
+```
+查詢packages
+```yum list available | grep lustre```
+或
+```yum search lustre```
+
+### 安裝server
+```
+yum install kmod-lustre.x86_64 lustre.x86_64 kmod-lustre-osd-ldiskfs.x86_64 lustre-osd-ldiskfs-mount.x86_64 lustre-osd-zfs-mount.x86_64  kmod-lustre-osd-zfs.x86_64 lustre-tests.x86_64  e2fsprogs
+```
+確認
+```
+rpm -qa|egrep "lustre|wc"|sort
+```
+
+
+### 新增lustre client repo
+
+```vim /etc/yum.repos.d/lustre.repo```
+填入
+```
+[lustre]
+name=lustre client repo
+baseurl=https://downloads.whamcloud.com/public/lustre/latest-release/el7/client/
+enabled=1
+gpgcheck=0
+```
+install
+```yum install lustre-client lustre
+```
+
+### REBOOT!!!
+### stop firewalld everywhere
+### PING Test
+```
+lctl ping 10.7.129.63
+```
+
+### On MGS/MDS
+```
+mkfs.lustre --fsname=temp --mgs --mdt --index=0 /dev/md0
+mkdir /mnt/mdt
+mount -t lustre /dev/md0 /mnt/mdt
+
+```
+
+### On OSS 01
+```
+mkfs.lustre --fsname=temp --mgsnode=10.7.129.63@tcp0 --ost --index=0 /dev/md0
+mkdir /mnt/ost01
+mount -t lustre /dev/md0 /mnt/ost01
+
+```
+
+
+
+### On OSS 02
+```
+mkfs.lustre --fsname=temp --mgsnode=10.7.129.63@tcp0 --ost --index=1 /dev/md0
+mkdir /mnt/ost02
+mount -t lustre /dev/md0 /mnt/ost02
+
+```
+
+### On client
+```
+mkdir /lustre
+mount -t lustre 10.7.129.63@tcp0:/temp /lustre
+
+lfs df -h
+lfs df -hi
+```
+
+#### tests
+ 
+```
+cd /lustre
+dd if=/dev/zero of=/lustre/zero.dat bs=4M count=2
+ls -lash
+
+yum install lusture-iokit
+ost-survey -s 10 /lustre
+```
+
