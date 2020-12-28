@@ -8,12 +8,17 @@ tags: HPC, Lustre
 
 # 簡介
 檔案系統對於高效能運算來說是不可或缺的一環，本次實驗為確認Lustre功能的初步環境建置。Lustre是一種平行分散式檔案系統，主要分為三大功能區塊：Metadata Server, Object Storage Server and clients。Metadata Servers (MDS)提供metadata的存儲與管理，其中存儲稱為Metadata target(MDT)，管理稱為Metadata server(MDS)；Object Storage Servers (OSS)管理與存放原始檔案，其中原始檔案的存放稱為Object Storage Target(OST)。另有負責管理的Management server(MGS)與相對應的Management Target(MGT)。主機間可透過ethernet或是InfiniBand(IB)互相連結溝通。一個最簡單的Lustre結構並不具有Failover的功能，另外因為MGT所占容量較低，MGS與MDS也會合併在同一台主機中，如下圖：
+
 ![圖一](https://doc.lustre.org/figures/Basic_Cluster.png)
+
 另外也可規劃一個OST對應多個OSS，MDT、MGT對應多個MDS、MGS等具有備援性的高可用系統，Lustre稱為Failover Configuration。如下圖：
 
 ![圖二](https://www.weka.io/wp-content/uploads/files/2020/08/Lustre-storage-system.png)
+
 而更為完整的系統可如下圖所示，將個部件分開並各自有互相備援功能：
+
 ![](https://doc.lustre.org/figures/Scaled_Cluster.png)
+
 本實驗將以最簡單的系統架構建置，目標就是會動就好。
 
 # 準備
@@ -23,7 +28,9 @@ Lustre的優點為其具有很完整的[Operations Manual](https://doc.lustre.or
 ### 目標
 Parallel File System (Lustre / BeeGFS)擇一，建議可規劃冷、熱區儲存( 至少規劃2台Metadata Severs / Storage Servers 以及提供 300TB熱區儲存 以及 500TB冷區儲存 )
 ### 架構圖
+
 ![](https://doc.lustre.org/figures/Scaled_Cluster.png)
+
 ### 主機硬體規格表
 
 | 角色     | 主機名  | vCPU | RAM  |
@@ -72,7 +79,9 @@ Parallel File System (Lustre / BeeGFS)擇一，建議可規劃冷、熱區儲存
 因為實驗為單純功能驗證，因此我們將縮小規模，以另外一套配置作為實驗環境。
 
 ## 架構圖
+
 ![圖一](https://doc.lustre.org/figures/Basic_Cluster.png)
+
 
 ## 主機硬體規格表
 
