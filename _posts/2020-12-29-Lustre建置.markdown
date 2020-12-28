@@ -1,34 +1,97 @@
 ---
 layout: post
-title:  "Lustre建置"
+title:  "Lustre建置步驟"
 date:   2020-12-29
 categories: HPC
 tags: HPC, Lustre
 ---
 
+# 簡介
+檔案系統對於高效能運算來說是不可或缺的一環，本次實驗為確認Lustre功能的初步環境建置。Lustre是一種平行分散式檔案系統，主要分為三大功能區塊：Metadata Server, Object Storage Server and clients。Metadata Servers (MDS)提供metadata的存儲與管理，其中存儲稱為Metadata target(MDT)，管理稱為Metadata server(MDS)；Object Storage Servers (OSS)管理與存放原始檔案，其中原始檔案的存放稱為Object Storage Target(OST)。另有負責管理的Management server(MGS)與相對應的Management Target(MGT)。主機間可透過ethernet或是InfiniBand(IB)互相連結溝通。一個最簡單的Lustre結構並不具有Failover的功能，另外因為MGT所占容量較低，MGS與MDS也會合併在同一台主機中，如下圖：
+![圖一](https://doc.lustre.org/figures/Basic_Cluster.png)
+另外也可規劃一個OST對應多個OSS，MDT、MGT對應多個MDS、MGS等具有備援性的高可用系統，Lustre稱為Failover Configuration。如下圖：
 
-# Lustre 規劃（上機實驗）
+![圖二](https://www.weka.io/wp-content/uploads/files/2020/08/Lustre-storage-system.png)
+而更為完整的系統可如下圖所示，將個部件分開並各自有互相備援功能：
+![](https://doc.lustre.org/figures/Scaled_Cluster.png)
+本實驗將以最簡單的系統架構建置，目標就是會動就好。
+
+# 準備
+Lustre的優點為其具有很完整的[Operations Manual](https://doc.lustre.org/lustre_manual.xhtml)可供參考，同時也是缺點，太詳盡了很難快速的完全建置。相較之下BeeGFS則提供了相較之下簡單許多的[Quick Start Guide](https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html)，缺點則為缺乏詳盡的硬體需求表。依照lustre Operations Manual所列的規格，可以參考如下的舉例配置。
+
+## 規劃範例
+### 目標
+Parallel File System (Lustre / BeeGFS)擇一，建議可規劃冷、熱區儲存( 至少規劃2台Metadata Severs / Storage Servers 以及提供 300TB熱區儲存 以及 500TB冷區儲存 )
+### 架構圖
+![](https://doc.lustre.org/figures/Scaled_Cluster.png)
+### 主機硬體規格表
+
+| 角色     | 主機名  | vCPU | RAM  |
+| -------- | ------- | ---- | ---- |
+| MGS      | MGS-002 |      |      |
+| MGS      | MGS-001 |      |      |
+| MDS      | MDS-001 |      | 16GB |
+| MDS      | MDS-002 |      | 16GB |
+| COLD-OSS | OSS-001 |      | 64GB |
+| ...      |         |      |      |
+| COLD-OSS | OSS-006 |      | 64GB |
+|          |         |      |      |
+| HOT-OSS  | OSS-013 |      | 64GB |
+| ...      |         |      |      |
+| HOT-OSS  | OSS-032 |      | 64GB |
+
+
+### 儲存空間硬體規格表
+| 角色 | Service 1 | Service 2 | 編號      | Storage     | RAID |
+| ---- | --------- | --------- | --------- | ----------- | ---- |
+| MGT  | MGS-001   | MGS-002   | MGT-001   | 100MB       | 1    |
+|      |           |           |           |             |      |
+| MDT  | MDS-002   | MDS-001   | MDT-002   | 2*1TB SSD   | 1    |
+| OST  | OSS-001   | OSS-002   | OST-00101 | 10*12TB     | 6    |
+| OST  | OSS-002   | OSS-001   | OST-00201 | 10*12TB     | 6    |
+| ...  |           |           |           |             |      |
+| OST  | OSS-005   | OSS-006   | OST-00501 | 10*12TB     | 6    |
+| OST  | OSS-006   | OSS-005   | OST-00601 | 10*12TB     | 6    |
+|      |           |           |           |             |      |
+| OST  | OSS-013   | OSS-014   | OST-01301 | 10*2TB  SSD | 6    |
+| OST  | OSS-014   | OSS-013   | OST-01401 | 10*2TB SSD  | 6    |
+| ...  |           |           |           |             |      |
+| OST  | OSS-031   | OSS-032   | OST-03101 | 10*2TB SSD  | 6    |
+| OST  | OSS-032   | OSS-031   | OST-03201 | 10*2TB SSD  | 6    |
+
+#### 備註
+6 cold-zone OSSs, each with one 96 TB OSTs, provide a file system with a capacity of over 500 TB. Each OST uses ten 12 TB SATA disks (8 data disks plus 2 parity disks in a RAID-6 configuration). Each OST connects with two OSS, one as primary, another as backup.
+
+20 hot-zone OSSs, each with one 16 TB OSTs, provide a file system with a capacity of over 300 TB.
+
+
+# 實際實驗
+
+
+## 目標
+因為實驗為單純功能驗證，因此我們將縮小規模，以另外一套配置作為實驗環境。
+
+## 架構圖
+![圖一](https://doc.lustre.org/figures/Basic_Cluster.png)
+
+## 主機硬體規格表
+
+| 角色     | 主機名  | vCPU | RAM | DISK   | IP          |
+| -------- | ------- | ---- | --- | ------ | ----------- |
+| Client   | login01 | 1    | 2GB | 64GB   | 10.7.129.52 |
+| MGS+MDS  | mds01   | 4    | 8GB | 2*20GB | 10.7.129.63 |
+| COLD-OSS | oss01   | 4    | 8GB | 6*30GB | 10.7.129.64 |
+| HOT-OSS  | oss02   | 4    | 8GB | 6*30GB | 10.7.129.65 |
 
   
-  
 
-## 主機
+## 儲存空間硬體規格表
 
-| 角色 | 主機名 | vCPU | RAM |
-| -- | --| -- | -- |
-| MGS+MDS | MGS-MDS | 4 | 8GB |
-| COLD-OSS | OSS-001 | 4 | 16GB |
-| HOT-OSS | OSS-002 | 4 | 16GB |
-
-  
-
-## 儲存
-
-| 角色 | Service 1 | Service 2 | 編號 | Storage | RAID |
-| ------- | --------- | --------- | --------- | --------- | ---- |
-| MGT+MDT | MGS-MDS | | MGT-MDT | 2*20GB SSD | 1 |
-| COLD-OST | OSS-001 | OSS-002 | OST-00101 | 10*30GB | 6 |
-| HOT-OST | OSS-002 | OSS-001 | OST-00201 | 10*10GB | 6 |
+| 角色     | Service 1 | Service 2 | 編號      | Storage    | RAID |
+| -------- | --------- | --------- | --------- | ---------- | ---- |
+| MGT+MDT  | mds01     |           | MGT-MDT   | 2*20GB SSD | 1    |
+| COLD-OST | oss01     |           | OST-00101 | 10*30GB    | 6    |
+| HOT-OST  | oss02     |           | OST-00201 | 10*30GB    | 6    |
 
   
   
@@ -37,13 +100,12 @@ tags: HPC, Lustre
 ## SYSTEM COFIG
 
   
-  
 
 | Common Para | Value | Description |
 | ------------ | ------ | ------------------ |
-| MGS Node | Text | Text |
+| MGS Node | 10.7.129.63@tcp0 | Node for the combined MGS/MDS |
 | file system | temp | name of filesystem |
-| Network type | TCP/IP | |
+| Network type | TCP/IP |Network type used for Lustre file system temp |
 
   
   
@@ -73,32 +135,47 @@ tags: HPC, Lustre
 | | mount point | /lustre | |
 
   
-  
-  
+## 開始建置
 
-### RAID指令
-
-建置
-
+### 建立Key-based Autentication SHH
+我們在建置的過程中要一直不斷的在個虛擬機之間來回切換，為了避免一直打密碼的麻煩，利用Key-based Autentication功能是個不錯的解決方法。
+首先在本機輸入
+```ssh-keygen```
+然後一直按enter
+這會讓本機產生public key與private key
+再以以下指令將public key送到虛擬機中並依序輸入密碼
+```
+ssh-copy-id -i root@10.7.129.52
+ssh-copy-id -i root@10.7.129.63
+ssh-copy-id -i root@10.7.129.64
+ssh-copy-id -i root@10.7.129.65
 ```
 
+接下來ssh虛擬機就不再需要密碼囉，如：
+
+```
+ssh root@10.7.129.63
+```
+### 建立RAID
+
+在oss01與oss02上透過```lsblk```指令可以查看到vd{b,c,d,e,f,g}這六個磁碟為未使用狀態，我們要將其以軟體RAID方式組在一起。
+
+```
 mdadm --create --auto=yes /dev/md0 --level=6 --raid-device=6 --spare-device=0 /dev/vd{b,c,d,e,f,g}
 
 ```
 
-查詢
+完成後等待一段時間讓sync完成，之後查詢確認RAID狀態完好
 
 ```
-
 mdadm --detail /dev/md0
-
 ```
 
   
 
 ### 新增lustre repo 及e2fsprogs repo
 
-  
+在mds01, oss01, oss02中加入lustre以及e2fsprogs的repository以便安裝所需套件，注意這邊安裝的是lustre server repo
 
 ```vim /etc/yum.repos.d/lustre.repo```
 
@@ -161,7 +238,7 @@ rpm -qa|egrep "lustre|wc"|sort
 
 ### 新增lustre client repo
 
-  
+接著在login01中加入lustre client repository
 
 ```vim /etc/yum.repos.d/lustre.repo```
 
@@ -181,7 +258,7 @@ gpgcheck=0
 
 ```
 
-install
+接著安裝lustre client
 
 ```
 yum install lustre-client lustre
@@ -190,18 +267,25 @@ yum install lustre-client lustre
   
 
 ### REBOOT!!!
+全部虛擬機重新開機
 
 ### stop firewalld everywhere
+firewalld 會阻擋虛擬機之間的通訊，可以直接關閉
+```
+systemctl stop firewalld.service
+systemctl disable firewalld.service
+systemctl status firewalld.service
+```
 
 ### PING Test
-
+在oss01與oss02上透過下列指令確認與mds01的通訊未被阻擋
 ```
 lctl ping 10.7.129.63
 ```
 
   
 
-### On MGS/MDS
+### 建置 MGS/MDS on mds01
 
 ```
 mkfs.lustre --fsname=temp --mgs --mdt --index=0 /dev/md0
@@ -213,7 +297,7 @@ mount -t lustre /dev/md0 /mnt/mdt
 
   
 
-### On OSS 01
+### 建置 OSS on oss01
 
 ```
 mkfs.lustre --fsname=temp --mgsnode=10.7.129.63@tcp0 --ost --index=0 /dev/md0
@@ -227,7 +311,7 @@ mount -t lustre /dev/md0 /mnt/ost01
   
   
 
-### On OSS 02
+### 建置OSS on oss02
 
 ```
 
@@ -240,7 +324,7 @@ mount -t lustre /dev/md0 /mnt/ost02
 
   
 
-### On client
+### client端建置 on login01
 
 ```
 mkdir /lustre
@@ -254,17 +338,27 @@ lfs df -hi
 
   
 
-#### tests
+#### tests on login01
+確認/lustre有被mount起來
 
 ```
+lfs df -h
+lfs df -ih
+```
+讀寫測試
+```
 cd /lustre
-
 dd if=/dev/zero of=/lustre/zero.dat bs=4M count=2
-
+```
+再偷看一下
+```
 ls -lash
-
+```
+效能測試
+```
 yum install lusture-iokit
 
 ost-survey -s 10 /lustre
 
 ```
+安捏就完成囉，恭喜。
