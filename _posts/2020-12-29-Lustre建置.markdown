@@ -370,4 +370,16 @@ yum install lusture-iokit
 ost-survey -s 10 /lustre
 
 ```
+
+### Automount 設定
+
+開啟
+FSTAB
+```
+vim /etc/fstab
+```
+輸入
+```
+10.7.129.63@tcp:/temp /lustre lustre defaults,noatime,flock,_netdev 0 0
+```
 安捏就完成囉，恭喜。
