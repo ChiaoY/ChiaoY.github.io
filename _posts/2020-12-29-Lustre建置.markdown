@@ -192,9 +192,9 @@ mdadm --detail /dev/md0
 
 ```
 
-[lustre]
+[lustre server]
 
-name=lustre repo
+name=lustre server repo
 
 baseurl=https://downloads.whamcloud.com/public/lustre/latest-release/el7/server/
 
@@ -255,14 +255,16 @@ rpm -qa|egrep "lustre|wc"|sort
 
 ```
 
-[lustre]
-
+[lustre client]
 name=lustre client repo
-
 baseurl=https://downloads.whamcloud.com/public/lustre/latest-release/el7/client/
-
 enabled=1
+gpgcheck=0
 
+[lustre server]
+name=lustre server repo
+baseurl=https://downloads.whamcloud.com/public/lustre/latest-release/el7/server/
+enabled=1
 gpgcheck=0
 
 ```
