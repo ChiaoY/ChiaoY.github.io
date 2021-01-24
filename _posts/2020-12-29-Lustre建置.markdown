@@ -192,9 +192,9 @@ mdadm --detail /dev/md0
 
 ```
 
-[lustre server]
+[lustre_server]
 
-name=lustre server repo
+name=lustre_server_repo
 
 baseurl=https://downloads.whamcloud.com/public/lustre/latest-release/el7/server/
 
@@ -206,7 +206,7 @@ gpgcheck=0
 
 [e2fsprogs]
 
-name=e2fsprogs repo
+name=e2fsprogs_repo
 
 baseurl=https://downloads.whamcloud.com/public/e2fsprogs/latest/el7/
 
@@ -255,14 +255,14 @@ rpm -qa|egrep "lustre|wc"|sort
 
 ```
 
-[lustre client]
-name=lustre client repo
+[lustre_client]
+name=lustre_client_repo
 baseurl=https://downloads.whamcloud.com/public/lustre/latest-release/el7/client/
 enabled=1
 gpgcheck=0
 
-[lustre server]
-name=lustre server repo
+[lustre_server]
+name=lustre_server_repo
 baseurl=https://downloads.whamcloud.com/public/lustre/latest-release/el7/server/
 enabled=1
 gpgcheck=0
