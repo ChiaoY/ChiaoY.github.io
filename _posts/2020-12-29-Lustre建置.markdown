@@ -260,13 +260,6 @@ name=lustre_client_repo
 baseurl=https://downloads.whamcloud.com/public/lustre/latest-release/el7/client/
 enabled=1
 gpgcheck=0
-
-[lustre_server]
-name=lustre_server_repo
-baseurl=https://downloads.whamcloud.com/public/lustre/latest-release/el7/server/
-enabled=1
-gpgcheck=0
-
 ```
 
 接著安裝lustre client
