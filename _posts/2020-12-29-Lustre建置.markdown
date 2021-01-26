@@ -414,16 +414,24 @@ stripe_count:  2 stripe_size:   4194304 pattern:       raid0 stripe_offset: -1
 大功告成，再測試一次。
 
 ```
+[root@h2-login01 lustre]# lfs df
+UUID                   1K-blocks        Used   Available Use% Mounted on
+temp-MDT0000_UUID       11591404        2448    10542848   1% /lustre[MDT:0]
+temp-OST0000_UUID      123387612        1244   117082012   1% /lustre[OST:0]
+temp-OST0001_UUID      123387612        1244   117077892   1% /lustre[OST:1]
+
+filesystem_summary:    246775224        2488   234159904   1% /lustre
+
 [root@h2-login01 lustre]# dd if=/dev/zero of=testfile bs=1M count=1000
 1000+0 records in
 1000+0 records out
-1048576000 bytes (1.0 GB) copied, 2.45818 s, 427 MB/s
-[root@h2-login01 lustre]# lfs df 
+1048576000 bytes (1.0 GB) copied, 1.52067 s, 690 MB/s
+[root@h2-login01 lustre]# lfs df
 UUID                   1K-blocks        Used   Available Use% Mounted on
 temp-MDT0000_UUID       11591404        2448    10542848   1% /lustre[MDT:0]
-temp-OST0000_UUID      123387612        9436   117073820   1% /lustre[OST:0]
-temp-OST0001_UUID      123387612     1025248   114990640   1% /lustre[OST:1]
+temp-OST0000_UUID      123387612      513248   116022048   1% /lustre[OST:0]
+temp-OST0001_UUID      123387612      513248   116033360   1% /lustre[OST:1]
 
-filesystem_summary:    246775224     1034684   232064460   1% /lustre
+filesystem_summary:    246775224     1026496   232055408   1% /lustre
 ```
-失敗！明天再試
+  成功！
