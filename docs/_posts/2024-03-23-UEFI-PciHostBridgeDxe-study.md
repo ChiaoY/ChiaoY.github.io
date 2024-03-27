@@ -8,7 +8,7 @@ tags: BIOS, UEFI
 
 
 
-# Introduction
+## Introduction
 PCI bus subsystem is a important subsystem for modern computers, either PC or 
 HPC uses it to connect many important devices. For example, storage, NIC, graphic 
 cards are using PCI buses to connect to processors. It also important for BIOS 
@@ -22,12 +22,12 @@ MdeModulePkg/Bus/Pci/PciHostBridgeDxe/PciHostBridgeDxe.inf
 MdeModulePkg/Bus/Pci/PciBusDxe/PciBusDxe.inf
 ```
 
-# PciHostBridgeDxe
+## PciHostBridgeDxe
 
-## PciHostBridgeDxe.inf
+### PciHostBridgeDxe.inf
 From this INF file we can know that the entry point for this driver is 
 `PciHostBridgeDxe()`
-```c
+```=
 [Defines]
   INF_VERSION                    = 0x00010005
   BASE_NAME                      = PciHostBridgeDxe
@@ -72,10 +72,123 @@ From this INF file we can know that the entry point for this driver is
   gEfiCpuArchProtocolGuid
 ```
 
-## PciHostBridge.c
+### PciRootBridge.h
+```c=
+// PCI_ROOT_BRIDGE_INSTANCE stuct
+typedef struct {
+  UINT32                             Signature;
+  LIST_ENTRY                         Link;
+  EFI_HANDLE                         Handle;
+  UINT64                             AllocationAttributes;
+  UINT64                             Attributes;
+  UINT64                             Supports;
+  PCI_RES_NODE                       ResAllocNode[TypeMax];
+  PCI_ROOT_BRIDGE_APERTURE           Bus;
+  PCI_ROOT_BRIDGE_APERTURE           Io;
+  PCI_ROOT_BRIDGE_APERTURE           Mem;
+  PCI_ROOT_BRIDGE_APERTURE           PMem;
+  PCI_ROOT_BRIDGE_APERTURE           MemAbove4G;
+  PCI_ROOT_BRIDGE_APERTURE           PMemAbove4G;
+  BOOLEAN                            DmaAbove4G;
+  BOOLEAN                            NoExtendedConfigSpace;
+  VOID                               *ConfigBuffer;
+  EFI_DEVICE_PATH_PROTOCOL           *DevicePath;
+  CHAR16                             *DevicePathStr;
+  EFI_PCI_ROOT_BRIDGE_IO_PROTOCOL    RootBridgeIo;
 
-### InitializePciHostBridge()
-```c
+  BOOLEAN                            ResourceSubmitted;
+  LIST_ENTRY                         Maps;
+} PCI_ROOT_BRIDGE_INSTANCE;
+
+// PCI_HOST_BRIDGE_INSTANCE struct
+typedef struct {
+  UINT32                             Signature;
+  LIST_ENTRY                         Link;
+  EFI_HANDLE                         Handle;
+  UINT64                             AllocationAttributes;
+  UINT64                             Attributes;
+  UINT64                             Supports;
+  PCI_RES_NODE                       ResAllocNode[TypeMax];
+  PCI_ROOT_BRIDGE_APERTURE           Bus;
+  PCI_ROOT_BRIDGE_APERTURE           Io;
+  PCI_ROOT_BRIDGE_APERTURE           Mem;
+  PCI_ROOT_BRIDGE_APERTURE           PMem;
+  PCI_ROOT_BRIDGE_APERTURE           MemAbove4G;
+  PCI_ROOT_BRIDGE_APERTURE           PMemAbove4G;
+  BOOLEAN                            DmaAbove4G;
+  BOOLEAN                            NoExtendedConfigSpace;
+  VOID                               *ConfigBuffer;
+  EFI_DEVICE_PATH_PROTOCOL           *DevicePath;
+  CHAR16                             *DevicePathStr;
+  EFI_PCI_ROOT_BRIDGE_IO_PROTOCOL    RootBridgeIo;
+
+  BOOLEAN                            ResourceSubmitted;
+  LIST_ENTRY                         Maps;
+} PCI_ROOT_BRIDGE_INSTANCE;
+```
+### PciHostBridgeLib.h
+```c=
+// PCI_ROOT_BRIDGE struct
+typedef struct {
+  UINT32                      Segment;               ///< Segment number.
+  UINT64                      Supports;              ///< Supported attributes.
+                                                     ///< Refer to EFI_PCI_ATTRIBUTE_xxx used by GetAttributes()
+                                                     ///< and SetAttributes() in EFI_PCI_ROOT_BRIDGE_IO_PROTOCOL.
+  UINT64                      Attributes;            ///< Initial attributes.
+                                                     ///< Refer to EFI_PCI_ATTRIBUTE_xxx used by GetAttributes()
+                                                     ///< and SetAttributes() in EFI_PCI_ROOT_BRIDGE_IO_PROTOCOL.
+  BOOLEAN                     DmaAbove4G;            ///< DMA above 4GB memory.
+                                                     ///< Set to TRUE when root bridge supports DMA above 4GB memory.
+  BOOLEAN                     NoExtendedConfigSpace; ///< When FALSE, the root bridge supports
+                                                     ///< Extended (4096-byte) Configuration Space.
+                                                     ///< When TRUE, the root bridge supports
+                                                     ///< 256-byte Configuration Space only.
+  BOOLEAN                     ResourceAssigned;      ///< Resource assignment status of the root bridge.
+                                                     ///< Set to TRUE if Bus/IO/MMIO resources for root bridge have been assigned.
+  UINT64                      AllocationAttributes;  ///< Allocation attributes.
+                                                     ///< Refer to EFI_PCI_HOST_BRIDGE_COMBINE_MEM_PMEM and
+                                                     ///< EFI_PCI_HOST_BRIDGE_MEM64_DECODE used by GetAllocAttributes()
+                                                     ///< in EFI_PCI_HOST_BRIDGE_RESOURCE_ALLOCATION_PROTOCOL.
+  PCI_ROOT_BRIDGE_APERTURE    Bus;                   ///< Bus aperture which can be used by the root bridge.
+  PCI_ROOT_BRIDGE_APERTURE    Io;                    ///< IO aperture which can be used by the root bridge.
+  PCI_ROOT_BRIDGE_APERTURE    Mem;                   ///< MMIO aperture below 4GB which can be used by the root bridge.
+  PCI_ROOT_BRIDGE_APERTURE    MemAbove4G;            ///< MMIO aperture above 4GB which can be used by the root bridge.
+  PCI_ROOT_BRIDGE_APERTURE    PMem;                  ///< Prefetchable MMIO aperture below 4GB which can be used by the root bridge.
+  PCI_ROOT_BRIDGE_APERTURE    PMemAbove4G;           ///< Prefetchable MMIO aperture above 4GB which can be used by the root bridge.
+  EFI_DEVICE_PATH_PROTOCOL    *DevicePath;           ///< Device path.
+} PCI_ROOT_BRIDGE;
+```
+
+### PciHostBridge.c
+
+#### Steps
+
+1. Get root bridges and their attributes, stores in `RootBridges` array.
+2. Get CPU_IO_2_PROTOCOL
+    1. TODO: Why
+3. Create a doubly linked list `HostBridge->RootBridges` to store the configured root bridges
+4. Iterate thorugh the root bridges and congure them
+    1. Create root bridge device handle instance `RootBridge`
+        1. TODO: PciBusDxe related
+    2. Make sure all root bridges share the same `ResourceAssigned` value
+        1. TODO: Why?
+    3. IO space
+        1. `AddIoSpace`: Add IO space to GCD
+        2. `gDS->AllocateIoSpace`: If `ResourceAssigned`, Allocate IO resource from GCD of the processor
+    4. Add all Mem/PMem to GCD
+        1. `AddMemoryMappedIoSpace`: Add MMIO space to GCD
+        2. `gDS->SetmemorySpaceAttributes`: Modifies the attributes for a memory region in the GCD of the processor.
+        3. `gDS->AllocateMemorySpace`: If `ResourceAssigned`,  allocate memory from GCD of processor
+5. Add the configured root bridge into the tail of the linked list `HostBridge->RootBridges`.
+6. If NOT `ResourceAssigned`, expose `PciHostBridgeResourceAllocation` Protocal to host bridge
+    - initializes a HostBridge structure with several function pointers like NotifyPhase, GetNextRootBridge, etc. These functions are defined in `PciHostBridgeDxe.c` and handle different aspects of resource allocation for the PCI host bridge.
+
+5. Install DevicePath Protocol and PciRootBridgeIo Protocol for each root bridges
+6. Free the root bridge instances array returned from PciHostBridgeGetRootBridges().
+
+
+#### InitializePciHostBridge()
+```clike=435
 EFI_STATUS
 EFIAPI
 InitializePciHostBridge (
@@ -102,6 +215,8 @@ InitializePciHostBridge (
   It return all the root bridge instances in an array and get the number of the 
   root bridges
   For OvmfPkgX64.dsc, it references OvmfPkg/Library/PciHostBridgeLib/PciHostBridgeLib.c
+  This function fetches all of the data of each PCI root bridge and fills the each element
+  of PCI_ROOT_BRIDGE into it. 
   */
   RootBridges = PciHostBridgeGetRootBridges (&RootBridgeCount);
   if ((RootBridges == NULL) || (RootBridgeCount == 0)) {
@@ -117,6 +232,7 @@ InitializePciHostBridge (
   ports for PCI. Only drivers that require direct access to the entire system should use this
   protocol.
   */
+
   Status = gBS->LocateProtocol (&gEfiCpuIo2ProtocolGuid, NULL, (VOID **)&mCpuIo);
   ASSERT_EFI_ERROR (Status);
 
