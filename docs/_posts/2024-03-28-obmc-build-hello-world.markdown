@@ -151,6 +151,9 @@ journalctl | tail
 
 ## References
 [OpenBMC Development Environment](https://github.com/openbmc/docs/blob/master/development/dev-environment.md)
+
 [OpenBMC Hello World using devtool](https://github.com/openbmc/docs/blob/master/development/devtool-hello-world.md)
+
 [IPMIv2 spec](https://www.intel.com.tw/content/www/tw/zh/products/docs/servers/ipmi/ipmi-second-gen-interface-spec-v2-rev1-1.html)
+
 [stack overflow: network backend 'user' is not compiled into this binary](https://stackoverflow.com/questions/75641274/network-backend-user-is-not-compiled-into-this-binary)
