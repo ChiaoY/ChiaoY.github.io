@@ -6,9 +6,6 @@ categories: openbmc
 tags: openbmc, bmc
 ---
 
-# [OpenBMC] Build First Image and Modify Repo Using devtool
----
-
 ## Build Image
 
 ```bash
