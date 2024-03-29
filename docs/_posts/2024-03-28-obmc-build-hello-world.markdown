@@ -19,10 +19,12 @@ bitbake obmc-phosphor-image
 
 ### Get QEMU
 **Note**
-- The 'user' networking backend is provided by the 'slirp' library; you get this message when the QEMU binary was built without slirp support compiled in. (Maydell)
+- So we use the QEMU provided by openbmc and don't use the upstream QEMU. If you use the QEMU installed with `apt get`, you will get the error `network backend 'user' is not compiled into this binary`.
+
+- The 'user' networking backend is provided by the 'slirp' library; you get above error message when the QEMU binary was built without slirp support compiled in. (Maydell)
 
 - As noted in the 7.2 changelog, QEMU no longer ships a copy of the slirp module with its sources. Instead you need to make sure you have installed your distro's libslirp development package (which is probably called libslirp-devel or libslirp-dev or something similar) before configuring and building QEMU. You need at least libslirp 4.7 or better. (Maydell)
-- So we use the QEMU provided by openbmc and don't use the upstream QEMU. If you use the QEMU installed with `apt get`, you will get the error `network backend 'user' is not compiled into this binary`.
+
 
 ```bash
 wget https://jenkins.openbmc.org/job/latest-qemu-x86/lastSuccessfulBuild/artifact/qemu/build/qemu-system-arm
