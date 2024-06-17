@@ -1,0 +1,292 @@
+---
+layout: post
+title:  "[Solved][LeetCode] 974. Subarray Sums Divisible by K"
+date:   2024-06-17
+categories: Jekyll
+tags: Jekyll
+---
+
+974. Subarray Sums Divisible by K
+# Question
+
+Medium
+
+Given an integer array nums and an integer k, return the number of non-empty subarrays that have a sum divisible by k.
+
+A subarray is a contiguous part of an array.
+
+Example 1:
+
+Input: nums = [4,5,0,-2,-3,1], k = 5
+
+Output: 7
+
+Explanation: There are 7 subarrays with a sum divisible by k = 5:
+
+[4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]
+
+Example 2:
+
+Input: nums = [5], k = 9
+
+Output: 0
+
+Constraints:
+
+1 <= nums.length <= 3 * 104
+
+-104 <= nums[i] <= 104
+
+2 <= k <= 104
+
+--------------------------------------------------------------------------------
+# Start time
+Mon Jun 17 10:33:03 AM CST 2024
+
+# Confirm the problem meaning
+* Check all possible sub arrays that have the sum divisible by given k.
+* the sum can be zero or negtive value.
+* size of given array `sums` is not zero, adn maximum size is 3 * 104
+* items in array `sums` is small signed intergers, -104 <= nums[i] < 104
+* k is postive interger, and 2 <= k <= 104
+
+
+# Express the solution
+Mon Jun 17 10:38:15 AM CST 2024
+
+## Method #1 Brute force
+Iterate through the array `nums` with two for loops, and go through all the possible conbination
+Check if the sum of the conbination is divisible by given `k`, if yes, add `count` with 1
+return `count`
+
+### Analyze the complexity
+#### Time
+Two for loops, outer one iterates n times, the inner one iterates n-1 times
+O(n + (n-1) + (n-2) + ... + 2 + 1) = O(n(n - 1) / 2)  = O(n^2)
+
+#### Space
+O(1)
+
+# Method #2
+Mon Jun 17 10:49:37 AM CST 2024
+Get the mod of each element in `nums` before Method #1
+
+### Analyze the complexity
+#### Time
+still two for loops, outer one iterates n times, the inner one iterates n-1 times
+O(n + (n + (n-1) + (n-2) + ... + 2 + 1)) = O((n(n + 1) / 2) - 1)  = O(n^2)
+
+#### Space
+O(1)
+
+### Improvements
+Still the same for both time and space complexity, but reduces overhead for calcuation.
+
+# Implementation
+```cpp
+#include <iostream>
+#include <vector>
+
+class Solution {
+public:
+    int subarraysDivByK(std::vector<int>& nums, int k) {
+        int count = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            int sum = 0;
+
+            for (int j = i; j < nums.size(); j++) {
+                sum += nums.at(j);
+
+
+                if (sum % k == 0) {
+                    // printf("i = %d, j = %d\n", i, j);
+                    count += 1;
+                }
+            }
+        }
+
+        return count;
+    }
+};
+
+int main() {
+    Solution sol;
+    std::vector<int> nums({4, 5, 0, -2, -3, 1});
+    int k = 5;
+    int result = 0;
+
+    result = sol.subarraysDivByK(nums, k);
+    std::printf("Result is %d\n", result);
+    return 0;
+}
+```
+
+# Test
+
+# Results
+Mon Jun 17 11:23:56 AM CST 2024
+
+TLE
+
+Pause time Mon Jun 17 11:26:23 AM CST 2024
+resume time Mon Jun 17 03:34:38 PM CST 2024
+
+# Review
+
+From [💯Faster✅💯Less Mem✅🧠Detailed Approach🎯Prefix Sum🔥Python🐍Java☕C++😎](https://leetcode.com/problems/subarray-sums-divisible-by-k/solutions/5281639/faster-less-mem-detailed-approach-prefix-sum-python-java-c/) written by Mohammed_Raziullah_Ansari
+
+## Prefix Sum with Hash Map:
+In the brute force method, we check every possible subarray in an array to see if their sums are divisible by 𝑘. This means for every starting point in the array, you calculate the sum of subarrays that start there, one by one. This leads to a lot of repeated work because you keep summing up the same numbers multiple times. The prefix sum approach helps you avoid this repeated work. Here's how:
+
+* By keeping a running total of the numbers as you go through the array.
+* Using this running total we can avoid calculating the sum of subarrays from scratch each time.
+
+## ⚛️Implementation Steps:
+1. Start with an initial prefix sum of 0.
+2. As you go through each number in the array, update the prefix sum by adding the current number.
+3. Calculate the remainder of this prefix sum when divided by ( k ).
+4. Use the hash map to check if this remainder has been seen before:
+    * If it has, it means there are subarrays that sum to a multiple of ( k ), and you increase your count by how many times this remainder has been seen.
+    * Update the hash map to include this new remainder.
+
+## Code
+```cpp
+class Solution {
+public:
+    int subarraysDivByK(std::vector<int>& nums, int k) {
+        // Initialize count of subarrays, prefix sum, and hash map for remainders
+        int count = 0;
+        int prefixSum = 0;
+        std::unordered_map<int, int> prefixMap;
+        prefixMap[0] = 1; // To handle subarrays that start from the beginning
+
+        for (int num : nums) {
+            // Update prefix sum
+            prefixSum += num;
+
+            // Calculate the remainder of the prefix sum divided by k
+            int mod = prefixSum % k;
+
+            // Adjust negative remainders to be positive
+            if (mod < 0) {
+                mod += k;
+            }
+
+            // If this remainder has been seen before, it means there are subarrays ending here that are divisible by k
+            if (prefixMap.find(mod) != prefixMap.end()) {
+                count += prefixMap[mod];
+                prefixMap[mod] += 1;
+            } else {
+                prefixMap[mod] = 1;
+            }
+        }
+
+        return count; // Total number of subarrays divisible by k
+    }
+};
+```
+
+## Test this method with example input
+Input: nums = [4,5,0,-2,-3,1], k = 5
+
+1. iter #1
+    prefix_sum = 4, mod = 4, prefixMap[0] = 1, prefixMap[4] = 1
+    count = 0
+
+2. iter #2
+    prefix_sum = 9, mod = 4, prefixMap[0] = 1, prefixMap[4] = 2
+    count = 1 (+1)
+
+3. iter #3
+    prefix_sum = 9, mod = 4, prefixMap[0] = 1, prefixMap[4] = 3
+    count = 3 (+2)
+
+4. iter #4
+    prefix_sum = 7, mod = 2, prefixMap[0] = 1, prefixMap[2] = 1, prefixMap[4] = 3
+    count = 3
+
+5. iter #5
+    prefix_sum = 4, mod = 4, prefixMap[0] = 1, prefixMap[2] = 1, prefixMap[4] = 4
+    count = 7 (+4)
+
+6. iter #6
+    prefix_sum = 1, mod = 1, prefixMap[0] = 1, prefixMap[1] = 1, prefixMap[2] = 1, prefixMap[4] = 4
+    count = 7
+
+## 📚Note:
+When to use the prefix sum approach:
+
+1. Cumulative Sum Queries:
+
+    * When the problem involves querying the sum of elements between various ranges multiple times.
+    * Example: Finding the sum of elements in subarrays or ranges efficiently.
+
+2. Subarray Sum Conditions:
+
+    * When you need to determine subarrays that meet a specific sum condition, such as being equal to a given value or divisible by a number.
+    * Example: Counting subarrays whose sum is divisible by (k).
+
+
+## Revised code
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+class Solution {
+public:
+    int subarraysDivByK(std::vector<int>& nums, int k) {
+        int mod = 0;
+        int count = 0;
+        int prefix_sum = 0;
+        std::unordered_map<int, int> prefixMap;
+        prefixMap[0] = 1; // to handle the subarray starting from the first element
+
+        for (int& num : nums) {
+            // update prefix sum
+            prefix_sum += num;
+
+            // calculate the mod
+            mod = prefix_sum % k;
+
+            // handle negtive mod
+            if (mod < 0)
+                mod += k;
+
+            // check if the pattern is seen before
+            // if prefixMap[mod] is non-zero, it means that there're prefixMap[mod] divisible subarrays
+            // seen from 0-th to the i-th elements in nums.
+            // Because the difference from the same mod to the same mod is n * k, n is arbitaray interger
+            // So, we add prefixMap[mod] to the count
+            if (prefixMap.find(mod) != prefixMap.end()){
+                count += prefixMap[mod];
+                prefixMap[mod] += 1;
+            }
+            else {
+                // If the pattern is not seen before, it's the first time we see it
+                prefixMap[mod] = 1;
+            }
+        }
+
+        return count;
+    }
+};
+
+int main() {
+    Solution sol;
+    std::vector<int> nums({4, 5, 0, -2, -3, 1});
+    int k = 5;
+    int result = 0;
+
+    result = sol.subarraysDivByK(nums, k);
+    std::printf("Result is %d\n", result);
+    return 0;
+}
+```
+# Stop time
+Mon Jun 17 04:07:55 PM CST 2024
+
+# Total time
+86 min
