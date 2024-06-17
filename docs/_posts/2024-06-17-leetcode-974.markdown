@@ -6,8 +6,7 @@ categories: leetcode
 tags: leetcode
 ---
 
-974. Subarray Sums Divisible by K
-# Question
+# Question 974. Subarray Sums Divisible by K
 
 Medium
 
