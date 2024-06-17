@@ -44,9 +44,9 @@ Mon Jun 17 10:33:03 AM CST 2024
 
 # Confirm the problem meaning
 * Check all possible sub arrays that have the sum divisible by given k.
-* the sum can be zero or negtive value.
-* size of given array `sums` is not zero, adn maximum size is 3 * 104
-* items in array `sums` is small signed intergers, -104 <= nums[i] < 104
+* The sum can be zero or negtive value.
+* Size of given array `sums` is not zero, and maximum size is 3 * 104
+* Items in array `sums` is small signed intergers, -104 <= nums[i] < 104
 * k is postive interger, and 2 <= k <= 104
 
 
