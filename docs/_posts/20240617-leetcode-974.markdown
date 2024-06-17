@@ -2,8 +2,8 @@
 layout: post
 title:  "[Solved][LeetCode] 974. Subarray Sums Divisible by K"
 date:   2024-06-17
-categories: Jekyll
-tags: Jekyll
+categories: leetcode
+tags: leetcode
 ---
 
 974. Subarray Sums Divisible by K
