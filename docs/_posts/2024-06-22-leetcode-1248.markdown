@@ -1,0 +1,224 @@
+---
+layout: post
+title:  "[LeetCode][C++] 1248. Count Number of Nice Subarrays"
+date:   2024-06-22
+categories: leetcode
+tags: leetcode
+---
+
+# Question 1248. Count Number of Nice Subarrays
+Medium
+
+Given an array of integers nums and an integer k. A continuous subarray is called nice if there are k odd numbers on it.
+
+Return the number of nice sub-arrays.
+
+Example 1:
+
+> Input: nums = [1,1,2,1,1], k = 3
+> Output: 2
+> Explanation: The only sub-arrays with 3 odd numbers are [1,1,2,1] and [1,2,1,1].
+
+Example 2:
+
+> Input: nums = [2,4,6], k = 1
+> Output: 0
+> Explanation: There are no odd numbers in the array.
+
+Example 3:
+
+> Input: nums = [2,2,2,1,2,2,1,2,2,2], k = 2
+> Output: 16
+
+Constraints:
+
+1 <= nums.length <= 50000
+1 <= nums[i] <= 10^5
+1 <= k <= nums.length
+
+--------------------------------------------------------------------------------
+# Start time
+Sat Jun 22 20:12:32 CST 2024
+
+# Confirm the problem meaning
+* Find the count of subarrays that meets the requirements
+* The requirements of the subarray is that there are k odd numbers on it
+* Odd numbers are 1, 3, 5, 7, ..., (2n-1), where  1 <= n < 2 * 10^5
+* 1 < nums.len <= 50000, no need to check empty array.
+* 1 <= nums[i] <= 10^5, smaller than 2147483647 (~=2 * 10^9)
+* k is postive interger, k is equal or smaller than num.length
+
+pause
+Sat Jun 22 20:19:35 CST 2024
+
+resume
+Sat Jun 22 22:11:21 CST 2024
+
+# Express the solution
+
+## Method #1 Find fundamental arrays and count associated nice arrays
+1. Iterate througth the nums array. If the nums[i] is odd, add the ordinal and the i to the hash map.
+   For example, [1,2,3,2,2,5], k = 2, map[1] = 1, map[2]=2,map[3]=5, and count the odd numbers.
+2. Define the 'fundamental subarray' as the sub arrays that from the n-th odd number to the (n+k-1)-th
+   odd number. The fundamental array is the fundation of nice arrays. each nice array must contains only
+   one fundamental array.
+3. Iterate from the the last appeared odd number and it's crrespoinding fundamental array. For each iteration,
+   Find the number of corresponding nice arrays that contains the fundamental array.
+   For example,[1,2,3,2,2,5], k = 2. The fundamental arrays are [1,2,3], [3,2,2,5]
+   [1,2,3], [1,2,3,2], [1,2,3,2,2] contain fundamental subarray [1,2,3]
+   [2,3,2,2,5], [3,2,2,5] contains [3,2,2,5]
+   Thus the output is 5
+
+### Analyze the complexity
+#### Time complexity
+O(N)
+#### Space complexity
+O(N)
+
+# Implementation
+
+```c++
+class Solution {
+public:
+    int numberOfSubarrays(std::vector<int>& nums, int k) {
+        int countNiceArrays = 0;
+        int countOddNumbers = 0;
+        std::unordered_map<int, int> map; // hash map to store the <n-th oddnumber, location> pair
+        for (int i = 0; i <nums.size(); i++) {
+            if (nums[i] % 2 == 1){
+                countOddNumbers += 1;
+                map[countOddNumbers] = i;
+            }
+        }
+
+        if (countOddNumbers < k)
+            return 0;
+
+        for (int i = countOddNumbers; i >= k; i--) {
+            // [start - end] is called fundamental subarray.
+            // The fundamental subarray is an array that starts from an odd num and end with another odd number,
+            // and contains k odd number in this subarray.
+            // for example, nums = [2,1,2,3,2,2,5,2] k = 2
+            // [1,2,3], [3,2,2,5] are fundamental arrays
+            // For each nice subarray, it's mandatory that contains one and only fundamental subarray.
+            // The fundamental subarray starts from start_index and end with end_index.
+            // bottom_index is the index of the previous odd number plus 1 or the array head if there's no other
+            // odd number between start_index and the array head.
+            // top_index is the index of the next odd number minus 1 or the array end if there;s no other odd number
+            // bwtween top_index and the array end.
+            // Thus, we can calculate the difference from the start_index to the bottom and the top_index to the end.
+            // and ((top_index - start_index + 1) * (end_index - bottom + 1)) is the count of possible nice array 
+            // with this fundamental subarray.
+            //
+            // [array head or prev odd num] - bottom - [start - end] - top - [array end or next odd num]
+            int top_index = 0;      // top index of possible subarray
+            int end_index = 0;      // end index of the minimal subarray set
+            int start_index = 0;    // start index of the minimal subarray set
+            int bottom_index = 0;   // bottom index of the possible subarray
+
+            if (i == countOddNumbers)   // if num[i] is the last odd number in the array
+                top_index = nums.size() - 1;
+            else
+                top_index = map[i + 1] - 1;
+
+            end_index = map[i];
+            start_index = map[i - k + 1];
+
+            if (i - k > 0)             // if there's another odd number between start_index and the array head
+                bottom_index = map[i - k] + 1;
+            else
+               bottom_index = 0;
+
+            // std::cout << "top:" << top_index << std::endl;
+            // std::cout << "end:" << end_index << std::endl;
+            // std::cout << "start:" << start_index << std::endl;
+            // std::cout << "bottom:" << bottom_index << std::endl;
+
+            countNiceArrays += ((top_index - end_index + 1) * (start_index - bottom_index + 1));
+            // std::cout << "countNiceArrays = " << countNiceArrays << std::endl;
+        }
+        return countNiceArrays;
+    }
+};
+```
+## Test
+
+## Example
+Example 1:
+
+> Input: nums = [1,1,2,1,1], k = 3
+
+map[1] = 0
+map[2] = 1
+map[3] = 3
+map[4] = 4
+
+i = 4
+    end_index = 4;
+    start_index = 0;
+    top_index = 4;
+    bottom_index = 0;
+    countNiceArrays = 1
+i = 3
+    end_index = 3;
+    start_index = 0;
+    top_index = 3;
+    bottom_index = 0;
+    countNiceArrays = 2
+
+Example 2:
+
+> Input: nums = [2,4,6], k = 1
+
+Example 3:
+
+> Input: nums = [2,2,2,1,2,2,1,2,2,2], k = 2
+> Output: 16
+
+map[1] = 3
+map[2] = 6
+
+i = 2
+    top_index = 9
+    end_index = 6
+    start_index = 3
+    bottom_index = 0
+    countNiceArrays += 4 * 4 = 16
+
+countNiceArrays = 16
+
+Eample 4:
+
+> Input: nums = [2,1,2,1,2,2,1,2] k = 2
+> Outoput: 10
+map[1] = 1
+map[2] = 3
+map[3] = 6
+
+i = 3
+    top_index = 7;
+    end_index = 6;
+    start_index = 3;
+    bottom_index = 2;
+    countNiceArrays += 2 * 2 = 4
+
+i = 2
+    top_index = 5;
+    end_index = 3;
+    start_index = 1;
+    bottom_index = 0;
+    countNiceArrays += 3 * 2 = 6
+
+countNiceArrays = 10
+
+# Results
+AC
+# Review
+1. Not able to fully construct and explain the algorithm before acual implementation.
+2. need to use `g++ --std=c++11 main.cpp` to compile C++11 syntex on MacOS
+
+# Stop time
+Sun Jun 23 00:31:34 CST 2024
+
+# Total time
+147min
